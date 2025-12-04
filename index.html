@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simple Chatbot</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #f0f0f0; /* light grey */
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    #chatbox {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      background: #f0f0f0; /* grey background */
+    }
+
+    .msg {
+      margin-bottom: 12px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      max-width: 80%;
+    }
+
+    .user {
+      background: #d1e7ff;
+      margin-left: auto;
+    }
+
+    .bot {
+      background: #ffffff;
+      border: 1px solid #ddd;
+    }
+
+    #inputBar {
+      display: flex;
+      border-top: 1px solid #ddd;
+      background: white;
+    }
+
+    #userInput {
+      flex: 1;
+      padding: 15px;
+      border: none;
+      outline: none;
+      font-size: 16px;
+    }
+
+    #sendBtn {
+      padding: 15px 20px;
+      border: none;
+      background: black;
+      color: white;
+      cursor: pointer;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="chatbox"></div>
+
+  <div id="inputBar">
+    <input id="userInput" type="text" placeholder="Type a message..." />
+    <button id="sendBtn">Send</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
