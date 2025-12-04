@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Multi-LLM Chatbot</title>
+<title>Single-Model Puter Chatbot</title>
 <script src="https://js.puter.com/v2/"></script>
 <link rel="stylesheet" href="style.css">
 </head>
@@ -12,32 +12,56 @@
   <div class="card">
     <div style="display:flex; gap:12px; align-items:center">
       <div>
-        <div style="font-size:18px; font-weight:800">Multi-LLM Chatbot</div>
-        <div class="small">Send one prompt to multiple LLMs and compare responses.</div>
+        <div style="font-size:18px; font-weight:800">Puter Free Chatbot</div>
+        <div class="small">Select one model, enter a prompt, and open Puter popup.</div>
       </div>
       <div class="status" id="mainStatus">Ready</div>
     </div>
 
     <div class="row" style="margin-top:12px">
-      <input id="modelsInput" type="text" value="claude-sonnet-4-5,claude-opus-4-5,claude-haiku-4-5" placeholder="Comma-separated model list"/>
+      <select id="modelSelect">
+        <option value="claude-sonnet-4-5">Claude Sonnet 4.5</option>
+        <option value="claude-opus-4-5">Claude Opus 4.5</option>
+        <option value="claude-haiku-4-5">Claude Haiku 4.5</option>
+      </select>
     </div>
+
     <div class="row">
-      <textarea id="promptInput" placeholder="Enter your question for all LLMs..."></textarea>
+      <textarea id="promptInput" placeholder="Enter your question..."></textarea>
     </div>
+
     <div class="row">
-      <div class="controls">
-        <button id="sendBtn" class="btn">Send to all models</button>
-        <button id="clearBtn" class="btn secondary">Clear outputs</button>
-        <button id="copyAllBtn" class="btn secondary">Copy all</button>
-        <button id="downloadBtn" class="btn secondary">Download JSON</button>
-      </div>
-      <label class="small" style="margin-left:auto">
-        <input type="checkbox" id="streamCheckbox" checked/> Stream responses
-      </label>
+      <button id="sendBtn" class="btn">Send to model</button>
+      <button id="clearBtn" class="btn secondary">Clear prompt</button>
     </div>
-    <div id="panels" class="panels" aria-live="polite"></div>
   </div>
 </div>
-<script src="script.js"></script>
+
+<script>
+const mainStatus = document.getElementById('mainStatus');
+const modelSelect = document.getElementById('modelSelect');
+const promptInput = document.getElementById('promptInput');
+const sendBtn = document.getElementById('sendBtn');
+const clearBtn = document.getElementById('clearBtn');
+
+sendBtn.addEventListener('click', async () => {
+  const model = modelSelect.value;
+  const prompt = promptInput.value.trim();
+  if (!prompt) { mainStatus.textContent = 'Enter a prompt'; return; }
+  mainStatus.textContent = `Opening Puter for ${model}...`;
+
+  try {
+    await puter.ai.chat(prompt, {model: model}); // opens Puter popup
+    mainStatus.textContent = `Popup opened for ${model}`;
+  } catch(err) {
+    mainStatus.textContent = `Error: ${err.message}`;
+  }
+});
+
+clearBtn.addEventListener('click', () => {
+  promptInput.value = '';
+  mainStatus.textContent = 'Cleared';
+});
+</script>
 </body>
 </html>
