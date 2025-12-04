@@ -1,77 +1,43 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Simple Chatbot</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background: #f0f0f0; /* light grey */
-      font-family: Arial, sans-serif;
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
-    }
-
-    #chatbox {
-      flex: 1;
-      padding: 20px;
-      overflow-y: auto;
-      background: #f0f0f0; /* grey background */
-    }
-
-    .msg {
-      margin-bottom: 12px;
-      padding: 10px 14px;
-      border-radius: 10px;
-      max-width: 80%;
-    }
-
-    .user {
-      background: #d1e7ff;
-      margin-left: auto;
-    }
-
-    .bot {
-      background: #ffffff;
-      border: 1px solid #ddd;
-    }
-
-    #inputBar {
-      display: flex;
-      border-top: 1px solid #ddd;
-      background: white;
-    }
-
-    #userInput {
-      flex: 1;
-      padding: 15px;
-      border: none;
-      outline: none;
-      font-size: 16px;
-    }
-
-    #sendBtn {
-      padding: 15px 20px;
-      border: none;
-      background: black;
-      color: white;
-      cursor: pointer;
-      font-size: 16px;
-    }
-  </style>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Multi-LLM Chatbot</title>
+<script src="https://js.puter.com/v2/"></script>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
+<div class="wrap">
+  <div class="card">
+    <div style="display:flex; gap:12px; align-items:center">
+      <div>
+        <div style="font-size:18px; font-weight:800">Multi-LLM Chatbot</div>
+        <div class="small">Send one prompt to multiple LLMs and compare responses.</div>
+      </div>
+      <div class="status" id="mainStatus">Ready</div>
+    </div>
 
-  <div id="chatbox"></div>
-
-  <div id="inputBar">
-    <input id="userInput" type="text" placeholder="Type a message..." />
-    <button id="sendBtn">Send</button>
+    <div class="row" style="margin-top:12px">
+      <input id="modelsInput" type="text" value="claude-sonnet-4-5,claude-opus-4-5,claude-haiku-4-5" placeholder="Comma-separated model list"/>
+    </div>
+    <div class="row">
+      <textarea id="promptInput" placeholder="Enter your question for all LLMs..."></textarea>
+    </div>
+    <div class="row">
+      <div class="controls">
+        <button id="sendBtn" class="btn">Send to all models</button>
+        <button id="clearBtn" class="btn secondary">Clear outputs</button>
+        <button id="copyAllBtn" class="btn secondary">Copy all</button>
+        <button id="downloadBtn" class="btn secondary">Download JSON</button>
+      </div>
+      <label class="small" style="margin-left:auto">
+        <input type="checkbox" id="streamCheckbox" checked/> Stream responses
+      </label>
+    </div>
+    <div id="panels" class="panels" aria-live="polite"></div>
   </div>
-
-  <script src="script.js"></script>
+</div>
+<script src="script.js"></script>
 </body>
 </html>
